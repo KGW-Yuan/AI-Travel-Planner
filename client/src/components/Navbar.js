@@ -6,9 +6,7 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // 清除本地存储中的用户信息
         localStorage.removeItem('userInfo');
-        // 跳转回登录页面
         navigate('/login');
     };
 
@@ -39,10 +37,34 @@ const Navbar = () => {
         }
     ];
 
+    const navbarStyle = {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: '20px',
+        padding: '0 20px',
+        background: 'rgba(255, 255, 255, 0.2)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        borderRadius: '10px',
+        border: '1px solid rgba(255, 255, 255, 0.3)',
+    };
+
+    const menuStyle = {
+        borderBottom: 'none',
+        background: 'transparent',
+        flex: 1,
+    };
+
+    const logoutMenuStyle = {
+        borderBottom: 'none',
+        background: 'transparent',
+    };
+
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Menu mode="horizontal" items={mainItems} style={{ borderBottom: 'none', flex: 1 }} />
-            <Menu mode="horizontal" items={logoutItem} style={{ borderBottom: 'none' }} />
+        <div style={navbarStyle}>
+            <Menu mode="horizontal" items={mainItems} style={menuStyle} />
+            <Menu mode="horizontal" items={logoutItem} style={logoutMenuStyle} />
         </div>
     );
 };

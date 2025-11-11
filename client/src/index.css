@@ -5,7 +5,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to right, #e2e8f0, #dbeafe);
+  
+  /* 更新后的动态渐变背景 */
+  background: linear-gradient(45deg, #a8c0ff, #3f2b96, #f7797d, #fbd786, #c6ffdd);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 code {
