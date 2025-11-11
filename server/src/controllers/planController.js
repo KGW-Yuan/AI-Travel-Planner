@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-const generatePlan = async (req, res) => {
+export const generatePlan = async (req, res) => {
     try {
         const {
             destination,
@@ -90,8 +90,4 @@ const generatePlan = async (req, res) => {
         console.error('--- End of Error ---');
         res.status(500).json({ message: 'Failed to generate travel plan due to an internal server error.' });
     }
-};
-
-module.exports = {
-    generatePlan,
 };

@@ -1,4 +1,4 @@
-const cloudbase = require('@cloudbase/node-sdk');
+import cloudbase from '@cloudbase/node-sdk';
 
 const app = cloudbase.init({
   secretId: process.env.TENCENT_SECRET_ID,
@@ -9,4 +9,4 @@ const app = cloudbase.init({
 const db = app.database();
 const _ = db.command;
 
-module.exports = { db, _ };
+export { db, _ };

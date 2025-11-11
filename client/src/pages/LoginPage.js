@@ -9,19 +9,18 @@ const LoginPage = () => {
 
   const onFinish = async (values) => {
     try {
-      // 后端API端点稍后也会一并修改
       const response = await axios.post('http://localhost:5001/api/auth/login', values);
       console.log('登录成功:', response.data);
-      // 在本地存储中保存用户信息和token
       localStorage.setItem('userInfo', JSON.stringify(response.data));
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       message.error(error.response?.data?.message || '登录失败！');
     }
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <h1 style={{ marginBottom: '2rem', fontSize: '2.5rem', fontWeight: 'bold' }}>AI 旅行规划师</h1>
       <Card title="登录" style={{ width: 400 }}>
         <Form name="login" onFinish={onFinish}>
           <Form.Item name="username" rules={[{ required: true, message: '请输入您的用户名!' }]}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, DatePicker, InputNumber, Select, Card, Spin, message, Typography } from 'antd';
 import axios from 'axios';
-// Removed the import for './HomePage.css' as it does not exist
+import MainLayout from '../components/MainLayout'; // 1. 引入 MainLayout 组件
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -34,8 +34,41 @@ const HomePage = () => {
             const response = await axios.post('/api/plan/generate', submissionData);
 
             if (response.data && response.data.plan) {
-                setTravelPlan(response.data.plan);
+                const plan = response.data.plan;
+                setTravelPlan(plan);
                 message.success('成功生成旅行计划！');
+
+                // --- 开始：保存对话到历史记录 ---
+                const travelStyleMap = {
+                    budget: '穷游',
+                    balanced: '均衡',
+                    luxury: '奢侈',
+                };
+
+                const question = `我的旅行需求如下：
+- 目的地: ${values.destination}
+- 时长: ${duration} 天
+- 人数: ${values.travelers} 人
+- 预算: ${values.budget} 人民币
+- 风格: ${travelStyleMap[values.travelStyle] || '均衡'}
+- 兴趣: ${(values.interests || []).join('，')}
+请为我生成一份详尽的旅行计划。`;
+
+                try {
+                    // 注意：这里的 userId 是一个临时占位符。
+                    // 在一个完整的应用中，您应该从用户认证状态中获取当前用户的ID。
+                    await axios.post('/api/history', {
+                        question: question,
+                        answer: plan,
+                        userId: 'temp-user-01' // 占位符用户ID
+                    });
+                } catch (historyError) {
+                    console.error('保存历史记录失败:', historyError);
+                    // 即便历史记录保存失败，也不影响主流程，仅给出提示
+                    message.error('保存历史记录失败，但计划已生成。');
+                }
+                // --- 结束：保存对话到历史记录 ---
+
             } else {
                 throw new Error('AI返回的数据格式不正确');
             }
@@ -71,7 +104,7 @@ const HomePage = () => {
 
 
     return (
-        <div className="container" style={{ padding: '20px' }}>
+        <MainLayout>
             <Title level={2} className="title" style={{ textAlign: 'center', marginBottom: '20px' }}>AI 旅行计划生成器</Title>
             <div className="main-content" style={{ display: 'flex', gap: '20px' }}>
                 <div className="form-section" style={{ flex: 1 }}>
@@ -131,7 +164,7 @@ const HomePage = () => {
                     </Card>
                 </div>
             </div>
-        </div>
+        </MainLayout>
     );
 };
 
