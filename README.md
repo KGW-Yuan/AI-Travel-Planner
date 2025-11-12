@@ -1,38 +1,146 @@
-# AI 旅行规划师 (AI Travel Planner)
+# AI Travel Planner
 
-## 1. 项目概述
+AI Travel Planner 是一款基于 AI 的全栈旅行计划应用。它允许用户注册、登录，并使用 AI 来创建个性化的旅行计划。前端使用 React 构建，后端则由 Node.js/Express 驱动。
 
-本项目旨在开发一个 Web 版的 AI 旅行规划师应用。它通过先进的 AI 技术理解用户的个性化旅行需求，自动生成包含交通、住宿、景点、餐厅在内的详细旅行计划。此外，应用还提供费用预算、语音交互和用户数据云端同步等功能，致力于为用户提供一站式、智能化的旅行规划体验。
+> **⚠️ 重要安全警告**
+>
+> **此项目是一个课程作业，根据老师的要求，DeepSeek API 密钥被直接放置在此 `README.md` 文件中。**
+>
+> 在任何真实的、非教学目的的项目中，这都是一个**极其危险**的做法。公开 API 密钥会导致您的账户被盗用、产生意想不到的费用，并可能导致服务被暂停。在生产环境中，密钥和所有敏感信息都应通过环境变量等安全方式进行管理，并且绝不应提交到版本控制系统（如 Git）中。
 
-## 2. 核心功能拆解
+## DeepSeek API Key
 
-1.  **智能行程规划**
-    *   **输入方式**: 支持语音和文字两种输入方式。
-    *   **核心要素**: 目的地、旅行天数、预算、同行人数、旅行偏好（如：美食、动漫、亲子、购物等）。
-    *   **AI 处理**: 后端服务将用户输入构建成结构化的 Prompt, 调用 **DeepSeek** 大语言模型 API。
-    *   **输出结果**: 生成一份 JSON 格式的详细日程，包含每日的景点安排、餐厅推荐、交通建议和大致时间规划。
+以下是本项目根据课程要求公开的 DeepSeek API 密钥：
+`sk-881268e2a2c44b9ea66d4080f8d33f0c`
 
-2.  **费用预算与管理**
-    *   **AI 预算分析**: AI 根据目的地、天数和生活水平预估旅行总费用。
-    *   **开销记录**: 用户可以通过语音或文字记录旅途中的每一笔开销。
-    *   **数据可视化**: 以图表形式展示费用构成，帮助用户清晰地了解其消费情况。
+---
 
-3.  **用户管理与数据存储**
-    *   **认证系统**: 提供用户注册和登录功能，使用 JWT (JSON Web Tokens) 进行会话管理。
-    *   **数据持久化**: 用户创建的旅行计划、个人偏好、消费记录等都将安全地存储在云端数据库。
-    *   **云端同步**: 保证用户在任何设备上登录后，都能访问和修改自己的最新数据。
+## ✨ 功能列表 (Features)
 
-## 3. 技术栈选型
+*   **用户认证**:
+    *   提供用户注册和登录功能。
+    *   使用 JSON Web Tokens (JWT) 进行安全的会话管理。
+*   **AI 智能规划**:
+    *   集成 DeepSeek API，根据用户输入的目的地、天数和兴趣偏好，智能生成旅行日程。
+*   **旅行计划管理**:
+    *   创建、查看、编辑和删除旅行计划。
+    *   将生成的 AI 建议保存到用户的计划中。
+*   **响应式设计**:
+    *   前端界面适配桌面和移动设备。
 
-*   **前端**: **React** - 一个成熟、生态丰富的 UI 框架，拥有大量现成的组件库（如 Ant Design），可以快速构建美观、交互性强的界面。
-*   **后端**: **Node.js (Express)** - 基于 JavaScript 的后端框架，与前端技术栈统一，便于全栈开发。其异步非阻塞的特性非常适合处理大量 I/O 请求（如调用外部 API）。
-*   **数据库**: **腾讯云 TDSQL-C (MySQL 版)** - 这是一个云原生数据库，具备高可用、高扩展性，并且完全兼容 MySQL。您可以利用腾讯云提供的服务来轻松管理数据库，无需关心底层运维。
-*   **AI 大语言模型**: **DeepSeek API** - 严格按照要求，使用 DeepSeek 模型作为行程规划的核心引擎。
-*   **语音识别**: **腾讯云实时语音识别 (ASR)** - 既然数据库选择了腾讯云，那么语音服务也使用腾讯云可以简化 API Key 的管理和计费。它能将用户的语音流实时转换为文字。
-*   **地图服务**: **高德地图 API** - 用于在界面上展示景点地理位置、规划路线等。
-*   **部署**: **Docker** + **GitHub Actions**
-    *   使用 Docker 将前端和后端分别打包成独立的镜像，确保环境一致性。
-    *   通过 `docker-compose` 在本地一键启动整个应用。
-    *   配置 GitHub Actions 实现 CI/CD，在代码推送到 GitHub 仓库后，自动构建 Docker 镜像并推送到**阿里云容器镜像服务 (ACR)**。
+---
 
-## 4. 项目结构
+## 🛠️ 技术栈 (Tech Stack)
+
+*   **前端**: React, Tailwind CSS, Ant Design
+*   **后端**: Node.js, Express.js, Mongoose
+*   **数据库**: MongoDB
+*   **AI 集成**: DeepSeek API
+*   **容器化**: Docker, Docker Compose
+*   **持续集成/持续部署 (CI/CD)**: GitHub Actions
+
+---
+
+## 🚀 如何开始 (Getting Started)
+
+您可以选择使用 Docker（推荐）或在本地直接运行两种方式来启动项目。
+
+### 1. 使用 Docker 运行 (推荐)
+
+这是最简单的方式，可以一键启动所有服务。
+
+**环境要求:**
+*   [Docker](https://www.docker.com/get-started) 和 [Docker Compose](https://docs.docker.com/compose/install/)
+
+**步骤:**
+
+1.  **克隆仓库:**
+    ```bash
+    git clone https://github.com/KGW-Yuan/AI-Travel-Planner.git
+    cd AI-Travel-Planner
+    ```
+
+2.  **配置环境变量:**
+    在 `server/` 目录下创建 `.env` 文件 (`server/.env`)，并填入以下内容。
+    ```env
+    MONGO_URI=mongodb://localhost:27017/ai-travel-planner
+    JWT_SECRET=your_super_secret_jwt_key
+    DEEPSEEK_API_KEY=sk-881268e2a2c44b9ea66d4080f8d33f0c
+    ```
+
+3.  **构建并运行:**
+    在项目根目录下运行：
+    ```bash
+    docker-compose up --build
+    ```
+    服务启动后：
+    *   前端将运行在 `http://localhost:3000`
+    *   后端 API 将运行在 `http://localhost:5000`
+
+### 2. 在本地直接运行 (不使用 Docker)
+
+如果您希望分别运行前端和后端服务。
+
+**环境要求:**
+*   [Node.js](https://nodejs.org/) (v16 或更高版本)
+*   一个正在本地运行的 [MongoDB](https://www.mongodb.com/try/download/community) 实例。
+
+**步骤:**
+
+1.  **克隆仓库并进入项目目录。**
+
+2.  **启动后端服务:**
+    ```bash
+    # 进入 server 目录
+    cd server
+
+    # 安装依赖
+    npm install
+
+    # 创建 .env 文件 (内容同上)
+
+    # 启动服务
+    npm start
+    ```
+    后端服务将运行在 `http://localhost:5000`。
+
+3.  **启动前端服务:**
+    ```bash
+    # (从项目根目录) 进入 client 目录
+    cd client
+
+    # 安装依赖
+    npm install
+
+    # 启动开发服务器
+    npm start
+    ```
+    前端应用将运行在 `http://localhost:3000`，并会自动代理 API 请求到后端。
+
+---
+
+## 📡 API 端点 (API Endpoints)
+
+后端服务提供以下主要 API 端点：
+
+*   `POST /api/auth/register`: 用户注册
+*   `POST /api/auth/login`: 用户登录
+*   `GET /api/plans`: 获取当前用户的所有旅行计划
+*   `POST /api/plans`: 创建一个新的旅行计划
+*   `POST /api/generate-plan`: 调用 AI 生成旅行建议
+
+---
+
+## 部署 (Deployment)
+
+本项目配置了使用 GitHub Actions 的 CI/CD 工作流 (`.github/workflows/docker-publish.yml`)。当代码被推送到 `initial-setup` 分支或相关的拉取请求被合并时，该工作流会自动触发。
+
+它会执行以下操作：
+1.  构建前端和后端的生产级 Docker 镜像。
+2.  将构建好的镜像推送到容器仓库（例如 Azure Container Registry）。
+
+这为后续的生产环境部署（例如在云服务器上拉取并运行这些镜像）奠定了基础。
+
+---
+
+此项目在 AI 结对程序员的协助下完成开发。
