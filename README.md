@@ -17,16 +17,10 @@ AI Travel Planner 是一款基于 AI 的全栈旅行计划应用。它允许用�
 
 ## ✨ 功能列表 (Features)
 
-*   **用户认证**:
-    *   提供用户注册和登录功能。
-    *   使用 JSON Web Tokens (JWT) 进行安全的会话管理。
-*   **AI 智能规划**:
-    *   集成 DeepSeek API，根据用户输入的目的地、天数和兴趣偏好，智能生成旅行日程。
-*   **旅行计划管理**:
-    *   创建、查看、编辑和删除旅行计划。
-    *   将生成的 AI 建议保存到用户的计划中。
-*   **响应式设计**:
-    *   前端界面适配桌面和移动设备。
+*   **用户认证**: 提供用户注册和登录功能，使用 JSON Web Tokens (JWT) 进行会话管理。
+*   **AI 智能规划**: 集成 DeepSeek API，根据用户输入的目的地、天数和兴趣偏好，智能生成旅行日程。
+*   **旅行计划管理**: 创建、查看、编辑和删除旅行计划。
+*   **响应式设计**: 前端界面适配桌面和移动设备。
 
 ---
 
@@ -41,81 +35,42 @@ AI Travel Planner 是一款基于 AI 的全栈旅行计划应用。它允许用�
 
 ---
 
-## 🚀 如何开始 (Getting Started)
+## 🚀 如何运行项目 (How to Run)
 
-您可以选择使用 Docker（推荐）或在本地直接运行两种方式来启动项目。
+本项目使用 Docker Compose 进行容器化管理，可以实现一键构建和启动。这是运行此项目的唯一推荐方式。
 
-### 1. 使用 Docker 运行 (推荐)
-
-这是最简单的方式，可以一键启动所有服务。
-
-**环境要求:**
+### 环境要求
 *   [Docker](https://www.docker.com/get-started) 和 [Docker Compose](https://docs.docker.com/compose/install/)
+*   一个正在本地运行的 [MongoDB](https://www.mongodb.com/try/download/community) 实例。
 
-**步骤:**
+### 运行步骤
 
 1.  **克隆仓库:**
+    打开您的终端，克隆此 GitHub 仓库到您的本地机器。
     ```bash
     git clone https://github.com/KGW-Yuan/AI-Travel-Planner.git
     cd AI-Travel-Planner
     ```
 
 2.  **配置环境变量:**
-    在 `server/` 目录下创建 `.env` 文件 (`server/.env`)，并填入以下内容。
+    后端服务需要一个 `.env` 文件来连接数据库和配置密钥。请在 `server/` 目录下手动创建 `.env` 文件 (`server/.env`)，并填入以下内容。
     ```env
     MONGO_URI=mongodb://localhost:27017/ai-travel-planner
     JWT_SECRET=your_super_secret_jwt_key
     DEEPSEEK_API_KEY=sk-881268e2a2c44b9ea66d4080f8d33f0c
     ```
+    *请注意：您需要确保 `MONGO_URI` 中的地址能够正确连接到您的 MongoDB 实例。*
 
-3.  **构建并运行:**
-    在项目根目录下运行：
+3.  **构建并启动应用:**
+    在项目根目录下（即 `AI-Travel-Planner` 目录），运行以下命令：
     ```bash
     docker-compose up --build
     ```
-    服务启动后：
-    *   前端将运行在 `http://localhost:3000`
-    *   后端 API 将运行在 `http://localhost:5000`
+    此命令会自动完成所有操作：它将分别为前端和后端构建 Docker 镜像，然后启动所有服务。
 
-### 2. 在本地直接运行 (不使用 Docker)
-
-如果您希望分别运行前端和后端服务。
-
-**环境要求:**
-*   [Node.js](https://nodejs.org/) (v16 或更高版本)
-*   一个正在本地运行的 [MongoDB](https://www.mongodb.com/try/download/community) 实例。
-
-**步骤:**
-
-1.  **克隆仓库并进入项目目录。**
-
-2.  **启动后端服务:**
-    ```bash
-    # 进入 server 目录
-    cd server
-
-    # 安装依赖
-    npm install
-
-    # 创建 .env 文件 (内容同上)
-
-    # 启动服务
-    npm start
-    ```
-    后端服务将运行在 `http://localhost:5000`。
-
-3.  **启动前端服务:**
-    ```bash
-    # (从项目根目录) 进入 client 目录
-    cd client
-
-    # 安装依赖
-    npm install
-
-    # 启动开发服务器
-    npm start
-    ```
-    前端应用将运行在 `http://localhost:3000`，并会自动代理 API 请求到后端。
+    服务成功启动后：
+    *   **前端应用** 将运行在 `http://localhost:3000`
+    *   **后端 API** 将运行在 `http://localhost:5000`
 
 ---
 
@@ -133,13 +88,7 @@ AI Travel Planner 是一款基于 AI 的全栈旅行计划应用。它允许用�
 
 ## 部署 (Deployment)
 
-本项目配置了使用 GitHub Actions 的 CI/CD 工作流 (`.github/workflows/docker-publish.yml`)。当代码被推送到 `initial-setup` 分支或相关的拉取请求被合并时，该工作流会自动触发。
-
-它会执行以下操作：
-1.  构建前端和后端的生产级 Docker 镜像。
-2.  将构建好的镜像推送到容器仓库（例如 Azure Container Registry）。
-
-这为后续的生产环境部署（例如在云服务器上拉取并运行这些镜像）奠定了基础。
+本项目配置了使用 GitHub Actions 的 CI/CD 工作流。当代码被推送到 `initial-setup` 分支或相关的拉取请求被合并时，该工作流会自动触发，将生产级的 Docker 镜像构建并推送到私有的容器仓库中，为后续的生产环境部署做好准备。
 
 ---
 
